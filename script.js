@@ -87,13 +87,11 @@ document.addEventListener("DOMContentLoaded", function () {
         totalAreaDisplay.textContent = `總坪數：${totalArea.toFixed(2)} 坪`;
         totalFormula.textContent = formulas.length > 0 ? `計算式：${formulas.join(" + ")} = ${totalArea.toFixed(2)}` : "";
     }
-
-   function addAreaBlock() {
-    console.log("新增計算區塊");
-    // 其他原本的程式碼...
-}
     
     function addAreaBlock() {
+           console.log("新增計算區塊");
+    // 其他原本的程式碼...
+}
         let blockIndex = areaBlocks.length + 1;
         let block = document.createElement("div");
         block.classList.add("area-block");
