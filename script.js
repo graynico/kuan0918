@@ -88,6 +88,11 @@ document.addEventListener("DOMContentLoaded", function () {
         totalFormula.textContent = formulas.length > 0 ? `計算式：${formulas.join(" + ")} = ${totalArea.toFixed(2)}` : "";
     }
 
+   function addAreaBlock() {
+    console.log("新增計算區塊");
+    // 其他原本的程式碼...
+}
+    
     function addAreaBlock() {
         let blockIndex = areaBlocks.length + 1;
         let block = document.createElement("div");
