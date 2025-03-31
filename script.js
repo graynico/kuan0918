@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         formula += ` × 0.3025)`;
 
-        area = Math.round(area * 1000) / 1000;
+        area = Math.round(area * 100) / 100;
         let totalBlockArea = area * quantity;
 
         block.querySelector(".area-result").textContent = area.toFixed(2);
@@ -83,7 +83,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
 
-        totalArea = Math.round(totalArea * 1000) / 1000;
+        totalArea = Math.round(totalArea * 100) / 100;
         totalAreaDisplay.textContent = `總坪數：${totalArea.toFixed(2)} 坪`;
         totalFormula.textContent = formulas.length > 0 ? `計算式：${formulas.join(" + ")} = ${totalArea.toFixed(2)}` : "";
     }
