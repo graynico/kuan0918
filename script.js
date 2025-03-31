@@ -83,7 +83,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
 
-        totalArea = Math.round(totalArea * 100) / 100;
+        totalArea = Math.round(totalArea * 1000) / 1000;
         totalAreaDisplay.textContent = `總坪數：${totalArea.toFixed(2)} 坪`;
         totalFormula.textContent = formulas.length > 0 ? `計算式：${formulas.join(" + ")} = ${totalArea.toFixed(2)}` : "";
     }
