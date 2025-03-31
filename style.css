@@ -1,0 +1,99 @@
+body {
+    font-family: 'Arial', sans-serif;
+    padding: 20px;
+    max-width: 800px;
+    margin: auto;
+    background-color: #f7f9fc;
+    color: #333;
+}
+
+h1 {
+    text-align: center;
+    font-size: 2rem;
+    color: #4b9cd3;
+}
+
+hr {
+    border: none;
+    height: 2px;
+    background: #4b9cd3;
+    margin-bottom: 20px;
+}
+
+.area-block {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    position: relative;
+    max-width: 100%;
+    border: 1px solid #ccc;
+}
+
+/* 刪除按鈕樣式，固定在右上角 */
+.delete-area {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: red;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.delete-area:hover {
+    background: darkred;
+}
+
+.area-block select, .area-block input {
+    width: 100%;
+    padding: 8px;
+    margin: 8px 0;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    box-sizing: border-box; /* 避免邊距影響寬度 */
+    font-size: 16px; /* 讓手機輸入時不會放大 */
+}
+
+button {
+    background-color: #4b9cd3;
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #357bbd;
+}
+
+button:active {
+    background-color: #2a5a8d;
+}
+
+.controls {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+#total-area, #formula {
+    font-weight: bold;
+    margin-top: 20px;
+    text-align: center;
+    color: #4b9cd3;
+}
+
+.copy-btn {
+    width: 100%;
+    margin-top: 20px;
+    background-color: #ff7043;
+}
