@@ -89,9 +89,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     
     function addAreaBlock() {
-           console.log("新增計算區塊");
-    // 其他原本的程式碼...
-}
         let blockIndex = areaBlocks.length + 1;
         let block = document.createElement("div");
         block.classList.add("area-block");
