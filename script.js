@@ -72,7 +72,7 @@ function calculateArea(block) {
     updateTotal();
 }
 
- function updateTotal() {
+function updateTotal() {
     let totalPing = 0;
     let totalM2 = 0;
     let formulas = [];
@@ -96,6 +96,7 @@ function calculateArea(block) {
         ? `計算式：${formulas.join(" + ")} = ${totalM2.toFixed(2)}m² = ${totalPing.toFixed(2)}`
         : "";
 }
+
 
     function addAreaBlock() {
         let blockIndex = areaBlocks.length + 1;
