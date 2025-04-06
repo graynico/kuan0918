@@ -95,7 +95,7 @@ block.querySelector(".total-area-ping").textContent = totalPing.toFixed(2);
 
         totalAreaDisplay.textContent = `總坪數：${totalPing.toFixed(2)} 坪`;
         totalFormula.textContent = formulaParts.length > 0
-            ? `計算式：${formulaParts.join(" + ")} = ${totalRawArea.toFixed(2)}m² = ${totalPing.toFixed(2)}`
+            ? `計算式：${formulaParts.join(" + ")} = ${totalRawArea.toFixed(2)}m² = ${totalPing.toFixed(2)}坪`
             : "";
     }
 
