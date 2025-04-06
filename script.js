@@ -117,7 +117,7 @@ function calculateArea(block) {
                 <p>單個面積(m²)：<span class="area-result-m2">0.00</span></p>
                 <p>單個面積(坪)：<span class="area-result-ping">0.00</span></p>
             </div>
-            <div class="total-row">
+            <div class="area-row">
                 <p>合計面積(m²)：<span class="total-area-m2">0.00</span></p>
                 <p>合計面積(坪)：<span class="total-area-ping">0.00</span></p>
             </div>
