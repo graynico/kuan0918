@@ -11,7 +11,7 @@ body {
 
 .container {
   max-width: 800px;
-  margin: 40px auto;
+  margin: 20px auto;
   background: #fff;
   padding: 30px;
   border-radius: 12px;
@@ -31,7 +31,7 @@ hr {
 
 .area-block {
   border: 1px solid #ccc;
-  border-left: 6px solid #4caf50;
+  border-left: 10px solid #f08848;
   padding: 20px;
   margin-bottom: 20px;
   border-radius: 8px;
@@ -48,8 +48,8 @@ hr {
 .delete-area {
   position: absolute;
   top: 10px;
-  right: 50px;
-  background-color: #e74c3c;
+  right: 10px;
+  background-color: #f08848;
   color: white;
   border: none;
   border-radius: 50%;
@@ -69,14 +69,14 @@ hr {
 
 .input-fields input,
 .quantity {
-  width: 100px;
-  padding: 6px 10px;
+  width: 100%;
+  padding: 12px 10px;
   border: 1px solid #ccc;
   border-radius: 6px;
 }
 
 .shape-select {
-  margin-top: 10px;
+  margin-top: 1px;
   padding: 6px 10px;
   border-radius: 6px;
   border: 1px solid #ccc;
@@ -84,7 +84,7 @@ hr {
 
 .area-row p {
   margin: 0;
-  min-width: 200px;
+  min-width: 150px;
 }
 
 .button-row {
@@ -118,7 +118,7 @@ hr {
 #copy-btn {
   margin-top: 10px;
   padding: 8px 14px;
-  background-color: #2196f3;
+  background-color: #f08848;
   color: white;
   border: none;
   border-radius: 8px;
@@ -128,6 +128,14 @@ hr {
 
 #copy-btn:hover {
   background-color: #1976d2;
+}
+
+.input-fields {
+  display: block; /* 確保每個 input 元素垂直排列 */
+}
+
+.quantity {
+  width: 100%; /* 讓數量輸入框也占滿一整行 */
 }
 
 @media (max-width: 480px) {
