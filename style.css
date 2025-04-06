@@ -1,99 +1,131 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
-    font-family: 'Arial', sans-serif;
-    padding: 20px;
-    max-width: 800px;
-    margin: auto;
-    background-color: #f7f9fc;
-    color: #333;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f5f5f5;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 800px;
+  margin: 40px auto;
+  background: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 h1 {
-    text-align: center;
-    font-size: 2rem;
-    color: #4b9cd3;
+  text-align: center;
+  font-size: 28px;
+  margin-bottom: 10px;
 }
 
 hr {
-    border: none;
-    height: 2px;
-    background: #4b9cd3;
-    margin-bottom: 20px;
+  border: 1px solid #ddd;
+  margin-bottom: 30px;
 }
 
 .area-block {
-    background-color: #fff;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-    position: relative;
-    max-width: 100%;
-    border: 1px solid #ccc;
+  border: 1px solid #ccc;
+  border-left: 6px solid #4caf50;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  position: relative;
+  background-color: #fafafa;
 }
 
-/* 刪除按鈕樣式，固定在右上角 */
+.block-title {
+  font-weight: bold;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
 .delete-area {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    background: red;
-    color: white;
-    border: none;
-    border-radius: 50%;
-    width: 25px;
-    height: 25px;
-    font-size: 16px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  font-size: 16px;
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
 }
 
-.delete-area:hover {
-    background: darkred;
+.input-fields,
+.area-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
 }
 
-.area-block select, .area-block input {
-    width: 100%;
-    padding: 8px;
-    margin: 8px 0;
-    border-radius: 5px;
-    border: 1px solid #ddd;
-    box-sizing: border-box; /* 避免邊距影響寬度 */
-    font-size: 16px; /* 讓手機輸入時不會放大 */
+.input-fields input,
+.quantity {
+  width: 100px;
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
 }
 
-button {
-    background-color: #4b9cd3;
-    color: white;
-    padding: 10px;
-    border: none;
-    cursor: pointer;
+.shape-select {
+  margin-top: 10px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
 }
 
-button:hover {
-    background-color: #357bbd;
+.area-row p {
+  margin: 0;
+  min-width: 200px;
 }
 
-button:active {
-    background-color: #2a5a8d;
+.button-row {
+  text-align: center;
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
 }
 
-.controls {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
+.button-row button {
+  padding: 10px 18px;
+  font-size: 16px;
+  border: none;
+  background-color: #4caf50;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
-#total-area, #formula {
-    font-weight: bold;
-    margin-top: 20px;
-    text-align: center;
-    color: #4b9cd3;
+.button-row button:hover {
+  background-color: #43a047;
 }
 
-.copy-btn {
-    width: 100%;
-    margin-top: 20px;
-    background-color: #ff7043;
+.summary {
+  text-align: center;
+  margin-top: 30px;
+}
+
+#copy-btn {
+  margin-top: 10px;
+  padding: 8px 14px;
+  background-color: #2196f3;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#copy-btn:hover {
+  background-color: #1976d2;
 }
