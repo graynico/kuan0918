@@ -62,8 +62,9 @@ function calculateArea(block) {
     let totalPing = totalM2 * 0.3025;
 
     // 顯示單個面積（m²）和合計面積（坪）
-    block.querySelector(".area-result").textContent = area.toFixed(2);
-    block.querySelector(".total-area-result").textContent = totalPing.toFixed(2);
+    block.querySelector(".area-result").textContent = area.toFixed(2);block.querySelector(".area-result").textContent = area.toFixed(2);
+    block.querySelector(".total-area-result").textContent = totalPing.toFixed(2);block.querySelector(".total-area-result").textContent = totalPing.toFixed(2);    
+    
 
     // 儲存公式
     block.setAttribute("data-formula", m2Formula);
