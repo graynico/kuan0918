@@ -63,8 +63,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
 block.querySelector(".area-result-m2").textContent = area.toFixed(2);
 block.querySelector(".area-result-ping").textContent = (area * 0.3025).toFixed(2);
-block.querySelector(".total-area-m2").textContent = totalM2.toFixed(2);
-block.querySelector(".total-area-ping").textContent = totalPing.toFixed(2);
+block.querySelector(".total-area-m2").textContent = totalArea.toFixed(2);
+block.querySelector(".total-area-ping").textContent = totalAreaInPing.toFixed(2);
 
 
         block.setAttribute("data-formula", baseFormula);
