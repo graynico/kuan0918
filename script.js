@@ -113,8 +113,14 @@ function calculateArea(block) {
             </select>
             <div class="input-fields"></div>
             <label>數量：</label><input type="number" class="quantity" min="1" max="10" value="1" inputmode="decimal">
-            <p>單個面積：<span class="area-result">0.00</span></p>
-            <p>合計面積：<span class="total-area-result">0.00</span></p>
+            <div class="area-row">
+                <p>單個面積(m²)：<span class="area-result-m2">0.00</span></p>
+                <p>單個面積(坪)：<span class="area-result-ping">0.00</span></p>
+            </div>
+            <div class="area-row">
+                <p>合計面積(m²)：<span class="total-area-m2">0.00</span></p>
+                <p>合計面積(坪)：<span class="total-area-ping">0.00</span></p>
+            </div>
         `;
 
         areaContainer.appendChild(block);
