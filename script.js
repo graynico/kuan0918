@@ -9,104 +9,100 @@ document.addEventListener("DOMContentLoaded", function () {
     let areaBlocks = [];
 
     function calculateArea(block) {
-        let shape = block.querySelector(".shape-select").value;
-        let quantity = parseFloat(block.querySelector(".quantity").value) || 1;
-        let inputs = block.querySelectorAll(".dimension");
+        const shape = block.querySelector(".shape-select").value;
+        const quantity = parseFloat(block.querySelector(".quantity").value) || 1;
+        const inputs = block.querySelectorAll(".dimension");
         let area = 0;
-        let baseFormula = "";
+        let formula = "";
 
         switch (shape) {
             case "rectangle":
-                let length = parseFloat(inputs[0].value) || 0;
-                let width = parseFloat(inputs[1].value) || 0;
-                baseFormula = `${length} × ${width}`;
+                const length = parseFloat(inputs[0].value) || 0;
+                const width = parseFloat(inputs[1].value) || 0;
                 area = length * width;
+                formula = `${length} × ${width}`;
                 break;
 
             case "triangle":
-                let base = parseFloat(inputs[0].value) || 0;
-                let height = parseFloat(inputs[1].value) || 0;
-                baseFormula = `${base} × ${height} ÷ 2`;
+                const base = parseFloat(inputs[0].value) || 0;
+                const height = parseFloat(inputs[1].value) || 0;
                 area = (base * height) / 2;
+                formula = `${base} × ${height} ÷ 2`;
                 break;
 
             case "circle":
-                let radius = parseFloat(inputs[0].value) || 0;
-                baseFormula = `3.14 × ${radius}²`;
+                const radius = parseFloat(inputs[0].value) || 0;
                 area = 3.14 * radius ** 2;
+                formula = `3.14 × ${radius}²`;
                 break;
 
             case "sector":
-                let radiusSector = parseFloat(inputs[0].value) || 0;
-                let angle = parseFloat(inputs[1].value) || 0;
-                baseFormula = `3.14 × ${radiusSector}² × ${angle} ÷ 360`;
+                const radiusSector = parseFloat(inputs[0].value) || 0;
+                const angle = parseFloat(inputs[1].value) || 0;
                 area = (3.14 * radiusSector ** 2 * angle) / 360;
+                formula = `3.14 × ${radiusSector}² × ${angle} ÷ 360`;
                 break;
 
             case "trapezoid":
-                let base1 = parseFloat(inputs[0].value) || 0;
-                let base2 = parseFloat(inputs[1].value) || 0;
-                let heightT = parseFloat(inputs[2].value) || 0;
-                baseFormula = `(${base1} + ${base2}) × ${heightT} ÷ 2`;
+                const base1 = parseFloat(inputs[0].value) || 0;
+                const base2 = parseFloat(inputs[1].value) || 0;
+                const heightT = parseFloat(inputs[2].value) || 0;
                 area = ((base1 + base2) * heightT) / 2;
+                formula = `(${base1} + ${base2}) × ${heightT} ÷ 2`;
                 break;
         }
 
-        const singleArea = area;
-        const areaPerPing = singleArea * 0.3025;
-        const totalArea = area * quantity;
-        const totalAreaInPing = totalArea * 0.3025;
-
         if (quantity > 1) {
-            baseFormula += ` × ${quantity}`;
+            formula += ` × ${quantity}`;
         }
 
-block.querySelector(".area-result-m2").textContent = singleArea.toFixed(2);
-block.querySelector(".area-result-ping").textContent = areaPerPing.toFixed(2);
-block.querySelector(".total-area-m2").textContent = totalArea.toFixed(2);
-block.querySelector(".total-area-ping").textContent = totalAreaInPing.toFixed(2);
+        const totalM2 = area * quantity;
+        const totalPing = totalM2 * 0.3025;
 
+        block.querySelector(".area-result-m2").textContent = area.toFixed(2);
+        block.querySelector(".area-result-ping").textContent = (area * 0.3025).toFixed(2);
+        block.querySelector(".total-area-m2").textContent = totalM2.toFixed(2);
+        block.querySelector(".total-area-ping").textContent = totalPing.toFixed(2);
 
-        block.setAttribute("data-formula", baseFormula);
-        block.setAttribute("data-raw-area", totalArea);
+        block.setAttribute("data-formula", formula);
+        block.setAttribute("data-m2", totalM2);
 
         updateTotal();
     }
 
     function updateTotal() {
         let totalPing = 0;
-        let totalRawArea = 0;
-        let formulaParts = [];
+        let totalM2 = 0;
+        const formulas = [];
 
-        areaBlocks.forEach((block) => {
-            let areaPing = parseFloat(block.querySelector(".total-area-ping").textContent) || 0;
-            let rawArea = parseFloat(block.getAttribute("data-raw-area")) || 0;
-            let formula = block.getAttribute("data-formula");
+        areaBlocks.forEach(block => {
+            const blockPing = parseFloat(block.querySelector(".total-area-ping").textContent) || 0;
+            const blockM2 = parseFloat(block.getAttribute("data-m2")) || 0;
+            const formula = block.getAttribute("data-formula");
 
-            if (areaPing > 0 && formula) {
-                formulaParts.push(formula);
-                totalPing += areaPing;
-                totalRawArea += rawArea;
+            if (blockPing > 0 && formula) {
+                formulas.push(formula);
+                totalPing += blockPing;
+                totalM2 += blockM2;
             }
         });
 
         totalPing = Math.round(totalPing * 100) / 100;
-        totalRawArea = Math.round(totalRawArea * 100) / 100;
+        totalM2 = Math.round(totalM2 * 100) / 100;
 
         totalAreaDisplay.textContent = `總坪數：${totalPing.toFixed(2)} 坪`;
-totalFormula.textContent = formulaParts.length > 0
-    ? `計算式：${formulaParts.join(" + ")} = ${totalRawArea.toFixed(2)} m² = ${totalPing.toFixed(2)} 坪`
-    : "";
-
+        totalFormula.textContent = formulas.length > 0
+            ? `計算式：${formulas.join(" + ")} = ${totalM2.toFixed(2)} m² = ${totalPing.toFixed(2)} 坪`
+            : "";
     }
 
     function addAreaBlock() {
-        let blockIndex = areaBlocks.length + 1;
-        let block = document.createElement("div");
+        const block = document.createElement("div");
         block.classList.add("area-block");
+
         block.innerHTML = `
             <button class="delete-area">✖</button>
-            <h4>計算區塊 ${blockIndex}</h4>
+            <h4 class="block-title"></h4>
             <select class="shape-select">
                 <option value="rectangle">矩形</option>
                 <option value="triangle">三角形</option>
@@ -130,16 +126,25 @@ totalFormula.textContent = formulaParts.length > 0
         areaBlocks.push(block);
 
         updateInputFields(block);
+        updateBlockTitles();
+
         block.querySelector(".shape-select").addEventListener("change", () => updateInputFields(block));
         block.querySelector(".quantity").addEventListener("input", () => calculateArea(block));
-        block.querySelector(".delete-area").addEventListener("click", () => removeBlock(block));
+        block.querySelector(".delete-area").addEventListener("click", () => {
+            block.remove();
+            areaBlocks = areaBlocks.filter(b => b !== block);
+            updateBlockTitles();
+            updateTotal();
+        });
+
         block.addEventListener("input", () => calculateArea(block));
     }
 
-    function removeBlock(block) {
-        areaBlocks = areaBlocks.filter(b => b !== block);
-        block.remove();
-        updateTotal();
+    function updateBlockTitles() {
+        areaBlocks.forEach((block, index) => {
+            const title = block.querySelector(".block-title");
+            title.textContent = `計算區塊 ${index + 1}`;
+        });
     }
 
     function clearAll() {
@@ -157,22 +162,32 @@ totalFormula.textContent = formulaParts.length > 0
     }
 
     function updateInputFields(block) {
-        let shape = block.querySelector(".shape-select").value;
-        let inputFields = block.querySelector(".input-fields");
+        const shape = block.querySelector(".shape-select").value;
+        const inputFields = block.querySelector(".input-fields");
         inputFields.innerHTML = "";
 
-        let inputsHTML = {
-            rectangle: '<input type="number" class="dimension" placeholder="長" inputmode="decimal"> <input type="number" class="dimension" placeholder="寬" inputmode="decimal">',
-            triangle: '<input type="number" class="dimension" placeholder="底" inputmode="decimal"> <input type="number" class="dimension" placeholder="高" inputmode="decimal">',
-            circle: '<input type="number" class="dimension" placeholder="半徑" inputmode="decimal">',
-            sector: '<input type="number" class="dimension" placeholder="半徑" inputmode="decimal"> <input type="number" class="dimension" placeholder="角度" inputmode="decimal">',
-            trapezoid: '<input type="number" class="dimension" placeholder="上底" inputmode="decimal"> <input type="number" class="dimension" placeholder="下底" inputmode="decimal"> <input type="number" class="dimension" placeholder="高" inputmode="decimal">'
+        const shapeInputs = {
+            rectangle: ['長', '寬'],
+            triangle: ['底', '高'],
+            circle: ['半徑'],
+            sector: ['半徑', '角度'],
+            trapezoid: ['上底', '下底', '高']
         };
 
-        inputFields.innerHTML = inputsHTML[shape];
-        block.querySelectorAll(".dimension").forEach(input => input.addEventListener("input", () => calculateArea(block)));
+        shapeInputs[shape].forEach(placeholder => {
+            const input = document.createElement("input");
+            input.type = "number";
+            input.className = "dimension";
+            input.placeholder = placeholder;
+            input.inputMode = "decimal";
+            input.addEventListener("input", () => calculateArea(block));
+            inputFields.appendChild(input);
+        });
+
+        calculateArea(block);
     }
 
+    // 初始化按鈕事件
     addAreaBtn.addEventListener("click", addAreaBlock);
     clearAllBtn.addEventListener("click", clearAll);
     copyFormulaBtn.addEventListener("click", copyFormula);
