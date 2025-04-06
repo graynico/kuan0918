@@ -2,7 +2,7 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
   <title>坪數計算器</title>
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -11,19 +11,14 @@
     <h1>坪數計算器</h1>
     <hr />
     <div id="area-container"></div>
-
-    <div class="button-row">
+    <div class="buttons">
       <button id="add-btn">新增面積</button>
       <button id="clear-btn">清空全部</button>
     </div>
-
-    <div class="summary">
-      <p id="total-area">總坪數：0.00 坪</p>
-      <p id="formula"></p>
-      <button id="copy-btn">複製計算式</button>
-    </div>
+    <div id="total-area">總坪數：0.00 坪</div>
+    <div id="formula"></div>
+    <button id="copy-btn">複製計算式</button>
   </div>
-
   <script src="script.js"></script>
 </body>
 </html>
