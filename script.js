@@ -8,96 +8,89 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let areaBlocks = [];
 
-function calculateArea(block) {
-    let shape = block.querySelector(".shape-select").value;
-    let quantity = parseFloat(block.querySelector(".quantity").value) || 1;
-    let inputs = block.querySelectorAll(".dimension");
-    let area = 0;
-    let formula = "";
-    let m2Formula = "";
+    function calculateArea(block) {
+        let shape = block.querySelector(".shape-select").value;
+        let quantity = parseFloat(block.querySelector(".quantity").value) || 1;
+        let inputs = block.querySelectorAll(".dimension");
+        let area = 0;
+        let formula = "";
 
-    switch (shape) {
-        case "rectangle":
-            let length = parseFloat(inputs[0].value) || 0;
-            let width = parseFloat(inputs[1].value) || 0;
-            area = length * width;
-            m2Formula = `${length} × ${width}`;
-            break;
+        switch (shape) {
+            case "rectangle":
+                let length = parseFloat(inputs[0].value) || 0;
+                let width = parseFloat(inputs[1].value) || 0;
+                area = length * width;
+                formula = `(${length} × ${width}`;
+                break;
 
-        case "triangle":
-            let base = parseFloat(inputs[0].value) || 0;
-            let height = parseFloat(inputs[1].value) || 0;
-            area = (base * height) / 2;
-            m2Formula = `${base} × ${height} ÷ 2`;
-            break;
+            case "triangle":
+                let base = parseFloat(inputs[0].value) || 0;
+                let height = parseFloat(inputs[1].value) || 0;
+                area = (base * height * 0.5);
+                formula = `(${base} × ${height} ÷ 2`;
+                break;
 
-        case "circle":
-            let radius = parseFloat(inputs[0].value) || 0;
-            area = 3.14 * radius ** 2;
-            m2Formula = `3.14 × ${radius}²`;
-            break;
+            case "circle":
+                let radius = parseFloat(inputs[0].value) || 0;
+                area = (3.14 * radius ** 2);
+                formula = `(3.14 × ${radius}²`;
+                break;
 
-        case "sector":
-            let r = parseFloat(inputs[0].value) || 0;
-            let angle = parseFloat(inputs[1].value) || 0;
-            area = (3.14 * r ** 2 * angle) / 360;
-            m2Formula = `3.14 × ${r}² × ${angle} ÷ 360`;
-            break;
+            case "sector":
+                let radiusSector = parseFloat(inputs[0].value) || 0;
+                let angle = parseFloat(inputs[1].value) || 0;
+                area = ((3.14 * radiusSector ** 2 * angle) / 360);
+                formula = `(3.14 × ${radiusSector}² × ${angle} ÷ 360`;
+                break;
 
-        case "trapezoid":
-            let base1 = parseFloat(inputs[0].value) || 0;
-            let base2 = parseFloat(inputs[1].value) || 0;
-            let heightT = parseFloat(inputs[2].value) || 0;
-            area = ((base1 + base2) * heightT) / 2;
-            m2Formula = `(${base1} + ${base2}) × ${heightT} ÷ 2`;
-            break;
-    }
-
-    // 加入數量到公式中
-    if (quantity > 1) {
-        m2Formula += ` × ${quantity}`;
-    }
-
-    let totalM2 = area * quantity;
-    let totalPing = totalM2 * 0.3025;
-
-    block.querySelector(".area-result-m2").textContent = area.toFixed(2) + " m²";  // 顯示單個面積（m²）
-    block.querySelector(".area-result-ping").textContent = areaInPing.toFixed(2) + " 坪";  // 顯示單個面積（坪） 
-    block.querySelector(".total-area-result-m2").textContent = totalBlockArea.toFixed(2) + " m²";  // 顯示合計面積（m²）
-    block.querySelector(".total-area-result-ping").textContent = totalAreaInPing.toFixed(2) + " 坪";  // 顯示合計面積（坪）
-    
-
-    // 儲存公式
-    block.setAttribute("data-formula", m2Formula);
-    block.setAttribute("data-m2", totalM2.toFixed(2));
-
-    updateTotal();
-}
-
- function updateTotal() {
-    let totalPing = 0;
-    let totalM2 = 0;
-    let formulas = [];
-
-    areaBlocks.forEach((block) => {
-        let blockPing = parseFloat(block.querySelector(".total-area-result").textContent) || 0;
-        let blockM2 = parseFloat(block.getAttribute("data-m2")) || 0;
-        if (blockPing > 0) {
-            let formula = block.getAttribute("data-formula");
-            formulas.push(formula);
-            totalPing += blockPing;
-            totalM2 += blockM2;
+            case "trapezoid":
+                let base1 = parseFloat(inputs[0].value) || 0;
+                let base2 = parseFloat(inputs[1].value) || 0;
+                let heightT = parseFloat(inputs[2].value) || 0;
+                area = (((base1 + base2) * heightT) / 2);
+                formula = `(${base1} + ${base2}) × ${heightT} ÷ 2`;
+                break;
         }
-    });
 
-    totalPing = Math.round(totalPing * 100) / 100;
-    totalM2 = Math.round(totalM2 * 100) / 100;
+        // 加入數量到公式中
+        if (quantity > 1) {
+            formula += ` × ${quantity}`;
+        }
 
-    totalAreaDisplay.textContent = `總坪數：${totalPing.toFixed(2)} 坪`;
-    totalFormula.textContent = formulas.length > 0
-        ? `計算式：${formulas.join(" + ")} = ${totalM2.toFixed(2)}m² = ${totalPing.toFixed(2)}`
-        : "";
-}
+        area = area * quantity;
+
+        // 計算坪數 (1坪 = 3.306 m²)
+        let areaInPing = area / 3.306; // 單個面積（坪）
+        let totalBlockArea = area * quantity; // 合計面積 (m²)
+        let totalAreaInPing = totalBlockArea / 3.306; // 合計面積（坪）
+
+        block.querySelector(".area-result-m2").textContent = area.toFixed(2) + " m²";  // 單個面積（m²）
+        block.querySelector(".area-result-ping").textContent = areaInPing.toFixed(2) + " 坪";  // 單個面積（坪）
+        block.querySelector(".total-area-result-m2").textContent = totalBlockArea.toFixed(2) + " m²";  // 合計面積（m²）
+        block.querySelector(".total-area-result-ping").textContent = totalAreaInPing.toFixed(2) + " 坪";  // 合計面積（坪）
+
+        block.setAttribute("data-formula", formula);
+
+        updateTotal();
+    }
+
+    function updateTotal() {
+        let totalArea = 0;
+        let formulas = [];
+
+        areaBlocks.forEach((block) => {
+            let area = parseFloat(block.querySelector(".total-area-result-m2").textContent) || 0;
+            if (area > 0) {
+                let formula = block.getAttribute("data-formula");
+                formulas.push(formula);
+                totalArea += area;
+            }
+        });
+
+        totalArea = Math.round(totalArea * 100) / 100;
+        totalAreaDisplay.textContent = `總坪數：${(totalArea / 3.306).toFixed(2)} 坪`; // 顯示總坪數
+        totalFormula.textContent = formulas.length > 0 ? `計算式：${formulas.join(" + ")} = ${totalArea.toFixed(2)}` : "";
+    }
 
     function addAreaBlock() {
         let blockIndex = areaBlocks.length + 1;
@@ -120,8 +113,8 @@ function calculateArea(block) {
                 <p>單個面積(坪)：<span class="area-result-ping">0.00</span></p>
             </div>
             <div class="area-row">
-                <p>合計面積(m²)：<span class="total-area-m2">0.00</span></p>
-                <p>合計面積(坪)：<span class="total-area-ping">0.00</span></p>
+                <p>合計面積(m²)：<span class="total-area-result-m2">0.00</span></p>
+                <p>合計面積(坪)：<span class="total-area-result-ping">0.00</span></p>
             </div>
         `;
 
