@@ -13,81 +13,87 @@ document.addEventListener("DOMContentLoaded", function () {
         let quantity = parseFloat(block.querySelector(".quantity").value) || 1;
         let inputs = block.querySelectorAll(".dimension");
         let area = 0;
-        let formula = "";
+        let baseFormula = "";
 
         switch (shape) {
             case "rectangle":
                 let length = parseFloat(inputs[0].value) || 0;
                 let width = parseFloat(inputs[1].value) || 0;
-                area = length * width * 0.3025;
-                formula = `(${length} × ${width}`;
+                baseFormula = `${length} × ${width}`;
+                area = length * width;
                 break;
 
             case "triangle":
                 let base = parseFloat(inputs[0].value) || 0;
                 let height = parseFloat(inputs[1].value) || 0;
-                area = (base * height * 0.5) * 0.3025;
-                formula = `(${base} × ${height} ÷ 2`;
+                baseFormula = `${base} × ${height} ÷ 2`;
+                area = (base * height) / 2;
                 break;
 
             case "circle":
                 let radius = parseFloat(inputs[0].value) || 0;
-                area = (3.14 * radius ** 2) * 0.3025;
-                formula = `(3.14 × ${radius}²`;
+                baseFormula = `3.14 × ${radius}²`;
+                area = 3.14 * radius ** 2;
                 break;
 
             case "sector":
                 let radiusSector = parseFloat(inputs[0].value) || 0;
                 let angle = parseFloat(inputs[1].value) || 0;
-                area = ((3.14 * radiusSector ** 2 * angle) / 360) * 0.3025;
-                formula = `(3.14 × ${radiusSector}² × ${angle} ÷ 360`;
+                baseFormula = `3.14 × ${radiusSector}² × ${angle} ÷ 360`;
+                area = (3.14 * radiusSector ** 2 * angle) / 360;
                 break;
 
             case "trapezoid":
                 let base1 = parseFloat(inputs[0].value) || 0;
                 let base2 = parseFloat(inputs[1].value) || 0;
                 let heightT = parseFloat(inputs[2].value) || 0;
-                area = (((base1 + base2) * heightT) / 2) * 0.3025;
-                formula = `(${base1} + ${base2}) × ${heightT} ÷ 2`;
+                baseFormula = `(${base1} + ${base2}) × ${heightT} ÷ 2`;
+                area = ((base1 + base2) * heightT) / 2;
                 break;
         }
 
-        // 加入數量到公式中
         if (quantity > 1) {
-            formula += ` × ${quantity}`;
+            baseFormula += ` × ${quantity}`;
+            area *= quantity;
         }
 
-        formula += ` × 0.3025)`;
+        const areaInPing = area * 0.3025;
 
-        area = Math.round(area * 100) / 100;
-        let totalBlockArea = area * quantity;
+        block.querySelector(".area-result").textContent = areaInPing.toFixed(2);
+        block.querySelector(".total-area-result").textContent = areaInPing.toFixed(2);
 
-        block.querySelector(".area-result").textContent = area.toFixed(2);
-        block.querySelector(".total-area-result").textContent = totalBlockArea.toFixed(2);
-
-        block.setAttribute("data-formula", formula);
+        block.setAttribute("data-formula", baseFormula);
+        block.setAttribute("data-raw-area", area);
 
         updateTotal();
     }
 
     function updateTotal() {
-        let totalArea = 0;
-        let formulas = [];
+        let totalPing = 0;
+        let totalRawArea = 0;
+        let formulaParts = [];
 
         areaBlocks.forEach((block) => {
-            let area = parseFloat(block.querySelector(".total-area-result").textContent) || 0;
-            if (area > 0) {
-                let formula = block.getAttribute("data-formula");
-                formulas.push(formula);
-                totalArea += area;
+            let areaPing = parseFloat(block.querySelector(".total-area-result").textContent) || 0;
+            let rawArea = parseFloat(block.getAttribute("data-raw-area")) || 0;
+            let formula = block.getAttribute("data-formula");
+
+            if (areaPing > 0 && formula) {
+                formulaParts.push(formula);
+                totalPing += areaPing;
+                totalRawArea += rawArea;
             }
         });
 
-        totalArea = Math.round(totalArea * 100) / 100;
-        totalAreaDisplay.textContent = `總坪數：${totalArea.toFixed(2)} 坪`;
-        totalFormula.textContent = formulas.length > 0 ? `計算式：${formulas.join(" + ")} = ${totalArea.toFixed(2)}` : "";
+        totalPing = Math.round(totalPing * 100) / 100;
+        totalRawArea = Math.round(totalRawArea * 100) / 100;
+
+        totalAreaDisplay.textContent = `總坪數：${totalPing.toFixed(2)} 坪`;
+        totalFormula.textContent = formulaParts.length > 0
+            ? `計算式：${formulaParts.join(" + ")} = ${totalRawArea.toFixed(2)}m² = ${totalPing.toFixed(2)}`
+            : "";
     }
-    
+
     function addAreaBlock() {
         let blockIndex = areaBlocks.length + 1;
         let block = document.createElement("div");
