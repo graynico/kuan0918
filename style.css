@@ -117,7 +117,7 @@ hr {
 }
 
 .button-row button:hover {
-  background-color: #43a047;
+  background-color: #f08848;
 }
 
 /* 複製按鈕 */
@@ -133,7 +133,7 @@ hr {
 }
 
 #copy-btn:hover {
-  background-color: #1976d2;
+  background-color: #f08848;
 }
 
 /* 手機尺寸調整 */
